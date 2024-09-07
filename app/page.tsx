@@ -99,6 +99,7 @@ export default function Home() {
 	}, [lines]);
 
 	const handleClose = useCallback(() => {
+		setActiveSlide(0);
 		setSlide([]);
 	}, []);
 
