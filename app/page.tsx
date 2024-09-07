@@ -139,11 +139,13 @@ export default function Home() {
 		};
 	}, [handleNext, handlePrev]);
 
+	console.log(activeSlide);
+
 	return (
 		<main className="absolute top-0 z-[-2] flex h-screen w-screen flex-col items-center justify-center bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 			{slide.length ? (
 				<div className="relative z-10 flex w-full flex-col items-center justify-center space-y-4 md:w-1/2">
-					<motion.h1
+					<motion.div
 						className="text-xl font-bold transition-all duration-1000 ease-in-out md:text-5xl"
 						key={activeSlide}
 						variants={variants}
@@ -151,8 +153,11 @@ export default function Home() {
 						animate="center"
 						exit="exit"
 						transition={{ duration: 0.5 }}
-						dangerouslySetInnerHTML={{ __html: slide[activeSlide] }}
-					/>
+					>
+						<h1
+							dangerouslySetInnerHTML={{ __html: slide[activeSlide] }}
+						/>
+					</motion.div>
 
 					<div className="fixed bottom-4 flex flex-row items-center space-x-2">
 						<Button size="icon" variant="secondary" onClick={handleShare}>
