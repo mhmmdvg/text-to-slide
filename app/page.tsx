@@ -41,26 +41,7 @@ export default function Home() {
 		[]
 	);
 
-	const handleShare = () => {
-		const encoded = encodeURIComponent(slide.join('\n\n'));
-		const url = `${window.location.origin}?slides=${encoded}`;
-
-		if (navigator.clipboard) {
-			navigator.clipboard
-				.writeText(url)
-				.then(() => setCopyLink(true))
-				.catch((error) => {
-					console.error('Copy link error', error);
-					fallbackCopyTextToClipboard(url);
-				});
-		} else {
-			fallbackCopyTextToClipboard(url);
-		}
-
-		setTimeout(() => setCopyLink(false), 1200);
-	};
-
-	const fallbackCopyTextToClipboard = (text: string) => {
+	const fallbackCopyTextToClipboard = useCallback((text: string) => {
 		const textArea = document.createElement('textarea');
 		textArea.value = text;
 		textArea.style.position = 'fixed';
@@ -79,9 +60,28 @@ export default function Home() {
 		}
 
 		document.body.removeChild(textArea);
-	};
+	}, []);
 
-	const handleSubmit = () => {
+	const handleShare = useCallback(() => {
+		const encoded = encodeURIComponent(slide.join('\n\n'));
+		const url = `${window.location.origin}?slides=${encoded}`;
+
+		if (navigator.clipboard) {
+			navigator.clipboard
+				.writeText(url)
+				.then(() => setCopyLink(true))
+				.catch((error) => {
+					console.error('Copy link error', error);
+					fallbackCopyTextToClipboard(url);
+				});
+		} else {
+			fallbackCopyTextToClipboard(url);
+		}
+
+		setTimeout(() => setCopyLink(false), 1200);
+	}, [slide, fallbackCopyTextToClipboard]);
+
+	const handleSubmit = useCallback(() => {
 		if (!lines) return alert('Please enter some text.');
 
 		const formatSlides = lines
@@ -100,16 +100,16 @@ export default function Home() {
 			.filter(Boolean);
 
 		setSlide(formatSlides);
-	};
+	}, [lines]);
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		setSlide([]);
-	};
+	}, []);
 
-	const handleReset = () => {
+	const handleReset = useCallback(() => {
 		setLines('');
 		localStorage.setItem('lines', '');
-	};
+	}, []);
 
 	useEffect(() => {
 		const url = new URL(window.location.href);
