@@ -1,9 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from 'lucide-react';
-import { useState, useEffect, useCallback, ChangeEvent } from 'react';
+import { useState, useEffect, useCallback, ChangeEvent, useMemo } from 'react';
 
 const variants = {
 	enter: { opacity: 0, x: 0, filter: 'blur(8px)' },
@@ -29,17 +29,13 @@ export default function Home() {
 		localStorage.setItem('lines', e.target.value);
 	};
 
-	const handleNext = useCallback(
-		() =>
-			setActiveSlide((prev) => (prev < slide.length - 1 ? prev + 1 : prev)),
+	const handleNext = useCallback(() => {
+		setActiveSlide((prev) => (prev < slide.length - 1 ? prev + 1 : prev));
+	}, [slide.length]);
 
-		[slide]
-	);
-
-	const handlePrev = useCallback(
-		() => setActiveSlide((prev) => (prev > 0 ? prev - 1 : prev)),
-		[]
-	);
+	const handlePrev = useCallback(() => {
+		setActiveSlide((prev) => (prev > 0 ? prev - 1 : prev));
+	}, []);
 
 	const fallbackCopyTextToClipboard = useCallback((text: string) => {
 		const textArea = document.createElement('textarea');
@@ -111,6 +107,10 @@ export default function Home() {
 		localStorage.setItem('lines', '');
 	}, []);
 
+	const currentSlideContent = useMemo(() => {
+		return slide[activeSlide] || '';
+	}, [slide, activeSlide]);
+
 	useEffect(() => {
 		const url = new URL(window.location.href);
 		const slideFormUrl = url.searchParams.get('slides');
@@ -139,25 +139,22 @@ export default function Home() {
 		};
 	}, [handleNext, handlePrev]);
 
-	console.log(activeSlide);
-
 	return (
 		<main className="absolute top-0 z-[-2] flex h-screen w-screen flex-col items-center justify-center bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 			{slide.length ? (
 				<div className="relative z-10 flex w-full flex-col items-center justify-center space-y-4 md:w-1/2">
-					<motion.div
-						className="text-xl font-bold transition-all duration-1000 ease-in-out md:text-5xl"
-						key={activeSlide}
+					<motion.h1
+						className="text-xl font-bold md:text-5xl"
 						variants={variants}
+						key={activeSlide}
 						initial="enter"
 						animate="center"
 						exit="exit"
 						transition={{ duration: 0.5 }}
-					>
-						<h1
-							dangerouslySetInnerHTML={{ __html: slide[activeSlide] }}
-						/>
-					</motion.div>
+						dangerouslySetInnerHTML={{
+							__html: currentSlideContent,
+						}}
+					/>
 
 					<div className="fixed bottom-4 flex flex-row items-center space-x-2">
 						<Button size="icon" variant="secondary" onClick={handleShare}>
@@ -191,7 +188,7 @@ export default function Home() {
 						</p>
 					</div>
 					<textarea
-						className="h-48 max-h-48 min-h-48 min-w-full rounded-lg border border-zinc-300 p-3 text-xs md:text-base"
+						className="h-48 max-h-48 min-h-48 min-w-full rounded-lg border border-zinc-300 p-3 text-sm md:text-base"
 						value={lines}
 						onChange={handleChange}
 					/>
