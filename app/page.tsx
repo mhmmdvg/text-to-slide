@@ -142,9 +142,9 @@ export default function Home() {
 	return (
 		<main className="absolute top-0 z-[-2] flex h-screen w-screen flex-col items-center justify-center bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 			{slide.length ? (
-				<div className="relative z-10 flex w-1/2 flex-col items-center justify-center space-y-4">
+				<div className="relative z-10 flex w-full flex-col items-center justify-center space-y-4 md:w-1/2">
 					<motion.h1
-						className="text-5xl font-bold transition-all duration-1000 ease-in-out"
+						className="text-xl font-bold transition-all duration-1000 ease-in-out md:text-5xl"
 						key={activeSlide}
 						variants={variants}
 						initial="enter"
@@ -175,16 +175,18 @@ export default function Home() {
 					</div>
 				</div>
 			) : (
-				<div className="relative z-10 w-1/2 space-y-4">
+				<div className="relative z-10 w-full space-y-4 p-4 md:w-1/2">
 					<div className="flex flex-col items-center justify-center space-y-3">
-						<h1 className="text-5xl font-bold">Text to Slide</h1>
-						<p className="text-xl">
+						<h1 className="text-xl font-bold md:text-5xl">
+							Text to Slide
+						</h1>
+						<p className="text-sm md:text-xl">
 							Convert your text into slides. Separate your slides with an
 							empty line.
 						</p>
 					</div>
 					<textarea
-						className="h-48 max-h-48 min-h-48 min-w-full rounded-lg border border-zinc-300 p-3"
+						className="h-48 max-h-48 min-h-48 min-w-full rounded-lg border border-zinc-300 p-3 text-xs md:text-base"
 						value={lines}
 						onChange={handleChange}
 					/>
