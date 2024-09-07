@@ -106,6 +106,7 @@ export default function Home() {
 	const handleReset = useCallback(() => {
 		setLines('');
 		localStorage.setItem('lines', '');
+		window.history.pushState({}, document.title, window.location.pathname);
 	}, []);
 
 	const currentSlideContent = useMemo(() => {
