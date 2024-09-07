@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Text to slide',
 		description: 'Text to slide by mvigi',
-		siteName: 'MVigi',
+		siteName: 'text to slide by mvigi',
 		locale: 'en-US',
 		type: 'website',
 	},
