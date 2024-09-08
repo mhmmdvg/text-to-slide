@@ -144,9 +144,9 @@ export default function Home() {
 	return (
 		<main className="absolute top-0 z-[-2] flex h-screen w-screen flex-col items-center justify-center bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 			{slide.length ? (
-				<div className="flex w-full flex-col items-center justify-center space-y-4 p-4 md:w-1/2">
+				<div className="flex w-full flex-col items-center justify-center space-y-4 p-4 md:w-9/12">
 					<motion.h1
-						className="text-xl font-bold md:text-5xl"
+						className="text-xl font-bold leading-snug md:text-5xl"
 						variants={variants}
 						key={activeSlide}
 						initial="enter"
