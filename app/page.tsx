@@ -190,9 +190,12 @@ export default function Home() {
 						</p>
 					</div>
 					<textarea
-						className="h-48 max-h-48 min-h-48 min-w-full rounded-lg border border-zinc-300 p-3 text-sm md:text-base"
+						className="h-48 max-h-48 min-h-48 min-w-full rounded-lg border border-zinc-300 p-3 text-muted-foreground"
 						value={lines}
 						onChange={handleChange}
+						autoFocus
+						required
+						rows={10}
 					/>
 					<div className="flex w-full flex-col space-y-3">
 						<Button
