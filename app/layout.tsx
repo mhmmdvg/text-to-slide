@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
 	title: 'Text to slide',
 	description: 'Text to slide by mvigi',
+	viewport: 'width=device-width, user-scalable=no',
 	openGraph: {
 		title: 'Text to slide',
 		description: 'Text to slide by mvigi',
@@ -35,11 +36,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				{/* <main className="flex h-screen w-screen flex-col items-center justify-center space-y-5 bg-white text-black"> */}
-				{children}
-				{/* </main> */}
-			</body>
+			<body className={inter.className}>{children}</body>
 		</html>
 	);
 }

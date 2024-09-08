@@ -179,7 +179,7 @@ export default function Home() {
 					</div>
 				</div>
 			) : (
-				<div className="relative z-10 w-full space-y-4 p-4 md:w-1/2">
+				<div className="relative z-10 w-full space-y-4 p-4 md:w-9/12 lg:w-1/2">
 					<div className="flex flex-col items-center justify-center space-y-3">
 						<h1 className="text-xl font-bold md:text-5xl">
 							Text to Slide
