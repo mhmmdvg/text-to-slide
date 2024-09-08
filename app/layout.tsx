@@ -7,7 +7,8 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
 	title: 'Text to slide',
 	description: 'Text to slide by mvigi',
-	viewport: 'width=device-width, user-scalable=no',
+	viewport:
+		'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
 	openGraph: {
 		title: 'Text to slide',
 		description: 'Text to slide by mvigi',
